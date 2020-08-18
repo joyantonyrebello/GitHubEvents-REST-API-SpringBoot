@@ -2,12 +2,36 @@ package com.hackerrank.github.model;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+@Entity
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Event {
+    @Id
     private Long id;
+
     private String type;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Actor actor;
+
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Repo repo;
-    private Timestamp createdAt;
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Timestamp created_at;
 
     public Event() {
     }
@@ -17,7 +41,7 @@ public class Event {
         this.type = type;
         this.actor = actor;
         this.repo = repo;
-        this.createdAt = createdAt;
+        this.created_at = createdAt;
     }
 
     public Long getId() {
@@ -53,10 +77,10 @@ public class Event {
     }
 
     public Timestamp getCreatedAt() {
-        return createdAt;
+        return created_at;
     }
 
     public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
+        this.created_at = createdAt;
     }
 }

@@ -1,7 +1,17 @@
 package com.hackerrank.github.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Repo {
+
+    @Id
     private Long id;
+
     private String name;
     private String url;
 
@@ -9,9 +19,9 @@ public class Repo {
     }
 
     public Repo(Long id, String name, String url) {
-        this.id = id;
-        this.name = name;
-        this.url = url;
+        this.setId(id);
+        this.setName(name);
+        this.setUrl(url);
     }
 
     public Long getId() {
