@@ -1,41 +1,25 @@
 package com.hackerrank.github.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Actor {
-
     @Id
-    private Long id;
+    Long id;
+    String login;
+    String avatar_url;
 
-    private String login;
-
-    private String avatar_url;
-
-    @Transient
-    private int totalEvents = 0;
-
-    public Actor() {
+    public Actor(){
     }
 
-    public Actor(Long id, String login, String avatar) {
-        this.setId(id);
-        this.setLogin(login);
-        this.setAvatar_url(avatar);
-    }
-
-    public Actor(Long id, String login, String avatar, int totalEvents) {
-        this.setId(id);
-        this.setLogin(login);
-        this.setAvatar_url(avatar);
-        this.setTotalEvents(totalEvents);
+    public Actor(Long id,String login,String avatar_url){
+        this.id = id;
+        this.login = login;
+        this.avatar_url = avatar_url;
     }
 
     public Long getId() {
@@ -58,12 +42,7 @@ public class Actor {
         return avatar_url;
     }
 
-    public void setAvatar_url(String avatar) {
-        this.avatar_url = avatar;
+    public void setAvatar_url(String avatar_url) {
+        this.avatar_url = avatar_url;
     }
-
-    public void setTotalEvents(int totalEvents) {
-        this.totalEvents = totalEvents;
-    }
-
 }

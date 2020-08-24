@@ -1,33 +1,23 @@
 package com.hackerrank.github.model;
 
-import java.sql.Timestamp;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
+
 @Entity
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Event {
     @Id
     private Long id;
 
     private String type;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL,optional = false)
     private Actor actor;
 
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     private Repo repo;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
@@ -36,12 +26,12 @@ public class Event {
     public Event() {
     }
 
-    public Event(Long id, String type, Actor actor, Repo repo, Timestamp createdAt) {
+    public Event(Long id, String type,Actor actor,Repo repo, Timestamp timestamp) {
         this.id = id;
         this.type = type;
         this.actor = actor;
         this.repo = repo;
-        this.created_at = createdAt;
+        this.created_at = timestamp;
     }
 
     public Long getId() {
@@ -76,11 +66,11 @@ public class Event {
         this.repo = repo;
     }
 
-    public Timestamp getCreatedAt() {
+    public Timestamp getCreated_at() {
         return created_at;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.created_at = createdAt;
+    public void setCreated_at(Timestamp created_at) {
+        this.created_at = created_at;
     }
 }

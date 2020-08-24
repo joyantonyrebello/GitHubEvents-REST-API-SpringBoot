@@ -1,27 +1,26 @@
 package com.hackerrank.github.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Repo {
-
     @Id
-    private Long id;
+    Long id;
+    String name;
+    String url;
 
-    private String name;
-    private String url;
+    public Repo(){
 
-    public Repo() {
     }
 
     public Repo(Long id, String name, String url) {
-        this.setId(id);
-        this.setName(name);
-        this.setUrl(url);
+        this.id = id;
+        this.name = name;
+        this.url = url;
     }
 
     public Long getId() {
